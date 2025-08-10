@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <title>Sign Up</title>
+</head>
+<body class="bg-primary d-flex justify-content-center align-items-center vh-100">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title ">Sign Up</h3>
+                        <p class="text text-secondary">Please fill in this form to create an account!</p>
+                        <hr class="mx-n4">
+                        <form id="signupForm">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="text" id="firstName" class="form-control border-0 bg-light" placeholder="First Name" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="text" id="lastName" class="form-control border-0 bg-light" placeholder="Last Name" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" class="form-control border-0 bg-light" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="password" class="form-control border-0 bg-light" placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="confirmPassword" class="form-control border-0 bg-light" placeholder="Confirm Password" required>
+                            </div>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                                <label class="form-check-label" for="termsCheck"><span class="text text-secondary">I accept the <a href="#terms">Terms of Use</a> & <a href="#Privacy">Privacy Policy</a></span></label>
+                            </div>
+                            <button type="submit" class="btn btn-primary px-5">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
+                <p class="text-center text-light mt-3">
+                    Already have an account? <a href="login.html" class="text-light"><u>Login here</u></a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+      }
+
+      const username = `${firstName} ${lastName}`;
+      try {
+        const response = await fetch('http://localhost:5000/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, email, password }),
+        });
+
+        if (response.ok) {
+          alert('Account created successfully!');
+          window.location.href = 'login.html';
+        } else {
+          const errorText = await response.text();
+          alert(`Error: ${errorText}`);
+        }
+      } catch (error) {
+        console.error('Error during signup:', error);
+        alert('Error: Unable to register. Please try again later.');
+      }
+    });
+    </script>
+</body>
+</html>

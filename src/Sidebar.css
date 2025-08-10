@@ -1,0 +1,39 @@
+.sidebar {
+    width: 200px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+    .sidebar h3 {
+        margin-bottom: 10px;
+        font-size: 1.2em;
+        color: #343a40;
+    }
+
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+        .sidebar ul li {
+            padding: 10px;
+            cursor: pointer;
+            color: #007bff;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+            .sidebar ul li:hover {
+                background-color: #e9ecef;
+            }
+
+            .sidebar ul li.active-room {
+                font-weight: bold;
+                background-color: #007bff;
+                color: white;
+            }
